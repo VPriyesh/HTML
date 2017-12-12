@@ -2,46 +2,46 @@
 <project name="AntExample1" default="backupingwar">	
 	
 	<target name="backupingwar" >
-    <scp file="/var/lib/jenkins/workspace/HTML.war" todir="root:tcs#1234@10.139.4.146:/root/folder/BackUpWar/HTML.war.1.stable" trust="true" />
+    <scp file="/opt/jenkins/workspace/HTML.war" todir="root:Tcs#1234@169.38.75.196:/root/folder/BackUpWar/HTML.war.1.stable" trust="true" />
 	<antcall target="war"/>
     </target>
 	
 	 <target name="war" >
-    <war destfile="/var/lib/jenkins/workspace/HTML.war" webxml="WEB-INF/web.xml">
-        <fileset dir="/var/lib/jenkins/workspace/FirstProject/"/>
+    <war destfile="/opt/jenkins/workspace/HTML.war" webxml="WEB-INF/web.xml">
+        <fileset dir="/opt/jenkins/workspace/First Project/"/>
          </war>
 		 <antcall target="stop"/>
 </target>
 	<target name="stop" >
-   <sshexec host="10.139.4.145"
+   <sshexec host="169.38.75.198"
 	username="root"
-	password="tcs#1234"
+	password="Tcs#1234"
 	trust="true"
-	command="/root/folders/apache-tomcat-7.0.76/bin/catalina.sh stop" />
+	command="/opt/tomcat9/bin/catalina.sh stop" />
 	        <antcall target="Remove"/>  
 </target>
 
 
 	<target name="Remove" >
-   <sshexec host="10.139.4.145"
+   <sshexec host="169.38.75.198"
 	username="root"
-	password="tcs#1234"
+	password="Tcs#1234"
 	trust="true"
-	command=" rm -rf /root/folders/apache-tomcat-7.0.76/webapps/HTML*"/>
+	command=" rm -rf /opt/tomcat9/webapps/HTML*"/>
 	        <antcall target="DeployTomcat"/>  
 </target>
 
 
 	<target name="DeployTomcat" >
-    <scp file="/var/lib/jenkins/workspace/HTML.war" todir="root:tcs#1234@10.139.4.145:/root/folders/apache-tomcat-7.0.76/webapps/" trust="true" />
+    <scp file="/opt/jenkins/workspace/HTML.war" todir="root:Tcs#1234@169.38.75.198:/opt/tomcat9/webapps/" trust="true" />
 	<antcall target="start"/>
 </target>
 
 <target name="start" >
-   <sshexec host="10.139.4.145"
+   <sshexec host="169.38.75.198"
 	username="root"
-	password="tcs#1234"
+	password="Tcs#1234"
 	trust="true"
-	command="/root/folders/apache-tomcat-7.0.76/bin/catalina.sh start" />
+	command="/opt/tomcat9/bin/catalina.sh start" />
 </target>	
 </project>
