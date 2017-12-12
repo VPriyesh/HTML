@@ -1,47 +1,12 @@
 <?xml version="1.0" ?> 
 <project name="AntExample1" default="war">	
 	
-	<target name="backupingwar" >
-    <scp file="/opt/jenkins/workspace/HTML.war" todir="root:Tcs#1234@169.38.75.196:/root/folder/BackUpWar/HTML.war.1.stable" trust="true" />
-	<antcall target="war"/>
-    </target>
+	
 	
 	 <target name="war" >
     <war destfile="/opt/jenkins/workspace/HTML.war" webxml="WEB-INF/web.xml">
         <fileset dir="/opt/jenkins/workspace/First Project/"/>
          </war>
-		 <antcall target="stop"/>
-</target>
-	<target name="stop" >
-   <sshexec host="169.38.75.198"
-	username="root"
-	password="Tcs#1234"
-	trust="true"
-	command="/opt/tomcat9/bin/shutdown.sh" />
-	        <antcall target="Remove"/>  
-</target>
-
-
-	<target name="Remove" >
-   <sshexec host="169.38.75.198"
-	username="root"
-	password="Tcs#1234"
-	trust="true"
-	command=" rm -rf /opt/tomcat9/webapps/HTML*"/>
-	        <antcall target="DeployTomcat"/>  
-</target>
-
-
-	<target name="DeployTomcat" >
-    <scp file="/opt/jenkins/workspace/HTML.war" todir="root:Tcs#1234@169.38.75.198:/opt/tomcat9/webapps/" trust="true" />
-	<antcall target="start"/>
-</target>
-
-<target name="start" >
-   <sshexec host="169.38.75.198"
-	username="root"
-	password="Tcs#1234"
-	trust="true"
-	command="/opt/tomcat9/bin/startup.sh " />
+		
 </target>	
 </project>
