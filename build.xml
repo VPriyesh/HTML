@@ -17,7 +17,7 @@
 	username="root"
 	password="Tcs#1234"
 	trust="true"
-	command="/opt/tomcat9/bin/shutdown.sh &" />
+	command="/opt/tomcat9/bin/shutdown.sh" />
 	        <antcall target="Remove"/>  
 </target>
 
@@ -42,6 +42,6 @@
 	username="root"
 	password="Tcs#1234"
 	trust="true"
-	command="/opt/tomcat9/bin/startup.sh &" />
+	command="/opt/tomcat9/bin/startup.sh " />
 </target>	
 </project>
