@@ -7,6 +7,39 @@
     <war destfile="/opt/jenkins/workspace/HTML.war" webxml="WEB-INF/web.xml">
         <fileset dir="/opt/jenkins/workspace/First Project/"/>
          </war>
-		
+	<antcall target="stop"/>
+</target>
+	<target name="stop" >
+   <sshexec host="10.162.126.164"
+	username="root"
+	password="tcs#1234"
+	trust="true"
+	command=" /etc/init.d/tomcat stop " />
+	        <antcall target="Remove"/>  
+</target>
+
+
+	<target name="Remove" >
+   <sshexec host="10.162.126.164"
+	username="root"
+	password="tcs#1234"
+	trust="true"
+	command=" rm -rf /usr/share/tomcat/webapps/HTML*"/>
+	        <antcall target="DeployTomcat"/>  
+</target>
+
+
+	<target name="DeployTomcat" >
+    <scp file="/opt/jenkins/workspace/HTML.war" todir="root:tcs#1234@10.162.126.164:/usr/share/tomcat/webapps/" trust="true" />
+	<antcall target="start"/>
+</target>
+
+<target name="start" >
+   <sshexec host="10.162.126.164"
+	username="root"
+	password="tcs#1234"
+trust="true"
+	command="/etc/init.d/tomcat restart " />
 </target>	
-</project>
+</project>	
+
