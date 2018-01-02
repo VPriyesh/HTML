@@ -10,8 +10,9 @@
 	<antcall target="stop"/>
 </target>
 	<target name="stop" >
-	<apply executable="/etc/init.d/tomcat">
+	<apply executable="tomcat">
   <arg value="stop"/>
+		<fileset dir="/etc/init.d/"/>
   </apply>
 		 <antcall target="Remove"/>  
 </target>
