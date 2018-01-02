@@ -18,8 +18,8 @@
 </target>
 	<target name="Remove" >		
 		<apply executable="rm -rf">
-			<arg value="/usr/share/tomcat/webapps/HTML*"/>
-			<fileset dir="/etc/init.d/"/>
+			<arg value="HTML*"/>
+			<fileset dir="/usr/share/tomcat/webapps/"/>
 					</apply>
 	        <antcall target="DeployTomcat"/>  
 </target>
