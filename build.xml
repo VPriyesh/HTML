@@ -10,36 +10,28 @@
 	<antcall target="stop"/>
 </target>
 	<target name="stop" >
-   <sshexec host="10.162.126.164"
-	username="root"
-	password="tcs#1234"
-	trust="true"
-	command=" /etc/init.d/tomcat stop " />
-	        <antcall target="Remove"/>  
+	<apply executable="/etc/init.d/tomcat">
+  <arg value="stop"/>
+  </apply>
+		 <antcall target="Remove"/>  
 </target>
 
-
 	<target name="Remove" >
-   <sshexec host="10.162.126.164"
-	username="root"
-	password="tcs#1234"
-	trust="true"
-	command=" rm -rf /usr/share/tomcat/webapps/HTML*"/>
+		
+		<apply executable="rm -rf /usr/share/tomcat/webapps/HTML*">
+		</apply>
 	        <antcall target="DeployTomcat"/>  
 </target>
 
 
 	<target name="DeployTomcat" >
-    <scp file="/opt/jenkins/workspace/HTML.war" todir="root:tcs#1234@10.162.126.164:/usr/share/tomcat/webapps/" trust="true" />
-	<antcall target="start"/>
+		<copy file="/opt/jenkins/workspace/HTML.war" todir="/usr/share/tomcat/webapps/"/>
+  	<antcall target="start"/>
 </target>
 
 <target name="start" >
-   <sshexec host="10.162.126.164"
-	username="root"
-	password="tcs#1234"
-trust="true"
-	command="/etc/init.d/tomcat restart " />
-</target>	
+   <apply executable="/etc/init.d/tomcat">
+  <arg value="start"/>
+  </apply></target>	
 </project>	
 
