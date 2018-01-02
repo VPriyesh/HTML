@@ -14,18 +14,15 @@
   <arg value="stop"/>
 		<fileset dir="/etc/init.d/"/>
   </apply>
-		 <antcall target="Remove"/>  
+		<antcall target="Remove"/>  
 </target>
-
-	<target name="Remove" >
-		
-		<apply executable="rm -rf ">
-			<arg value="/usr/share/tomcat/webapps/HTML* "/>
+	<target name="Remove" >		
+		<apply executable="rm -rf">
+			<arg value="/usr/share/tomcat/webapps/HTML*"/>
+			<fileset dir="/etc/init.d/"/>
 					</apply>
 	        <antcall target="DeployTomcat"/>  
 </target>
-
-
 	<target name="DeployTomcat" >
 		<copy file="/opt/jenkins/workspace/HTML.war" todir="/usr/share/tomcat/webapps/"/>
   	<antcall target="start"/>
