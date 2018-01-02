@@ -19,7 +19,9 @@
 
 	<target name="Remove" >
 		
-		<apply executable="rm -rf /usr/share/tomcat/webapps/HTML*">
+		<apply executable="rm -rf ">
+			<arg value="/usr/share/tomcat/webapps/HTML* "/>
+			<fileset dir="/tmp" />
 		</apply>
 	        <antcall target="DeployTomcat"/>  
 </target>
@@ -31,8 +33,9 @@
 </target>
 
 <target name="start" >
-   <apply executable="/etc/init.d/tomcat">
+   <apply executable="tomcat">
   <arg value="start"/>
+	   <fileset dir="/etc/init.d/"/>
   </apply></target>	
 </project>	
 
